@@ -3,15 +3,11 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var Clean = require('clean-webpack-plugin');
 
 var paths = [
-    './hello/',
-    './world/',
-    './'
 ];
 
 module.exports = {
     entry: {
-        'main': "./main.jsx",
-        'generator': "./generator.jsx"
+        'main': "./main.js",
     },
     output: {
         path: "./build",
@@ -24,7 +20,7 @@ module.exports = {
     module: {
         loaders: [
             { test: /\.css$/, loader: "style!css" },
-            { test: /\.jsx$/, exclude: /node_modules/, loader: "babel-loader"}
+            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
         ]
     },
 
@@ -33,6 +29,6 @@ module.exports = {
         new CopyWebpackPlugin([
             {from: './content', to: './content'}
         ]),
-        new StaticSiteGeneratorPlugin('generator', paths, {paths: paths})
+        new StaticSiteGeneratorPlugin('main', paths, {paths: paths})
     ]
 };
